@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="SaleTicket.ShopControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleTicket"
+             mc:Ignorable="d" 
+             Height="800" Width="1200">
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="listTemplateSmall">
+            <StackPanel Height="300">
+                <StackPanel>
+                    <TextBlock Text="Точка отправления: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointOfDeparture}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка отправления"/>
+                    <TextBlock/>
+                    <TextBlock Text="Точка назначения: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointDestination}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка назначения"/>
+                    <TextBlock/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Цена руб: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = Price}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                </StackPanel>
+                <Button x:Name="ButtonChoice" Content="Выбрать" Click="ButtonChoice_Click" Style="{StaticResource MaterialDesignFlatAccentBgButton}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="listTemplateBig">
+            <StackPanel Height="550">
+                <StackPanel>
+                    <TextBlock Text="Точка отправления: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointOfDeparture}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка отправления"/>
+                    <TextBlock/>
+                    <TextBlock Text="Точка назначения: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointDestination}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка назначения"/>
+                    <TextBlock/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text = "Цена руб: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = Price}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                </StackPanel>
+                <Button x:Name="ButtonChoice" Content="Выбрать" Width="250" Height="40" Click="ButtonChoice_Click" Style="{StaticResource MaterialDesignFlatAccentBgButton}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="listTemplateBasket">
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Точка отправления: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointOfDeparture}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка отправления"/>
+                    <TextBlock/>
+                    <TextBlock Text="Точка назначения: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path = TicketPointDestination}" Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0" materialDesign:HintAssist.Hint="Точка назначения"/>
+                    <TextBlock/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Цена руб: " Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                    <TextBlock Text="{Binding Path=Price}" Style="{StaticResource  MaterialDesignBody1TextBlock}" Margin="5 0"/>
+                </StackPanel>
+                <Button x:Name="DeleteProduct" Content="Удалить из корзины" Width="250" Height="40" Click="DeleteProduct_Click" Style="{StaticResource MaterialDesignFlatAccentBgButton}"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Background="White" x:Name="CatalogGrid" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="101*"/>
+            </Grid.RowDefinitions>
+
+            <!--Панель выбора отображения товаров, корзина и переключение товаров-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Отображение товара: " Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Center"/>
+
+                <RadioButton Grid.Column="1" x:Name="OneProductDisplay" Content="Винтрина 1" Style="{StaticResource MaterialDesignAccentRadioButton}" Width="150" Height="40" Click="OneProductDisplay_Click"/>
+                <RadioButton Grid.Column="2" x:Name="FourProductDisplay" Content="Винтрина 4" Style="{StaticResource MaterialDesignAccentRadioButton}" Width="150" Height="40" Click="FourProductDisplay_Click"/>
+                <RadioButton Grid.Column="3" x:Name="ListProductDisplay" Content="Список" Style="{StaticResource MaterialDesignAccentRadioButton}" Width="150" Height="40" IsChecked="True" Click="ListProductDisplay_Click"/>
+
+                <StackPanel Grid.Column="5" Orientation="Vertical">
+                    <TextBlock x:Name="QuentytiProduct" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28"/>
+                    <Button x:Name="MoveToBasket"  Width="76" Height="45" Background="White" HorizontalAlignment="Center" Click="MoveToBasket_Click">
+                        <Label>
+                            <materialDesign:PackIcon Kind ="Basket" Height="24" Width="34" VerticalAlignment="Center"/>
+                        </Label>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="4" x:Name="ButtonHadlerOneProductDisplay" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+                    <Button x:Name="ButtonPreviousOneProduct" Width="30" Height="30" Click="ButtonPreviousOneProduct_Click">
+                        <Label Width="15" Margin=" -10 0 0 0">
+                            <materialDesign:PackIcon Kind="ArrowLeftThick" Width="8" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center"/>
+                        </Label>
+                    </Button>
+                    <Button x:Name="ButtonNextOneProduct" Width="30" Height="30" Click="ButtonNextOneProduct_Click" Cursor="Hand">
+                        <Label Width="15" Margin=" -10 0 0 0">
+                            <materialDesign:PackIcon Kind="ArrowRightThick"  Width="8" HorizontalAlignment="Center" Height="19" VerticalAlignment="Center"/>
+                        </Label>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="4" x:Name="ButtonHadlerFourProductDisplay" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+                    <Button x:Name="ButtonPreviousFourProduct" Width="30" Height="30" Click="ButtonPreviousFourProduct_Click">
+                        <Label>
+                            <materialDesign:PackIcon Kind="ArrowLeftThick"/>
+                        </Label>
+                    </Button>
+                    <Button x:Name="ButtonNextFourProduct" Width="30" Height="30" Click="ButtonNextFourProduct_Click">
+                        <Label>
+                            <materialDesign:PackIcon Kind="ArrowRightThick"/>
+                        </Label>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Панель поиска товаров и корзина-->
+                <StackPanel Grid.Column="0">
+
+                    <TextBlock Text="Фильтры поиска" Style="{StaticResource MaterialDesignBody1TextBlock}" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+
+                    <TextBlock Text="Поиск по пункту отправления" Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                    <ComboBox x:Name="PointOfDepartureComboBox" Height="40" Width="250" Margin="10" SelectionChanged="PointOfDepartureComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TypeDestination}" Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Поиск по пункту отправления" Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                    <ComboBox x:Name="PointDestinationComboBox" Height="40" Width="250" Margin="10" SelectionChanged="PointDestinationComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TypeDestination}" Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <StackPanel Margin="5 20">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Сортировка цены от: " Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Top"/>
+                            <TextBlock Name="TextSliderStart" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="0"/>
+                        </StackPanel>
+                        <Slider x:Name="SliderStart" Value="0" Minimum="0" Maximum="10000" SelectionStart="0" Height="30" 
+        IsSelectionRangeEnabled="True" ValueChanged="SliderStart_ValueChanged" Margin="0 10"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Сортировка цены до: " Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Top"/>
+                            <TextBlock Name="TextSliderEnd" Style="{StaticResource MaterialDesignBody1TextBlock}" Text="10000"/>
+                        </StackPanel>
+                        <Slider x:Name="SliderEnd" Value="10000" Minimum="0" Maximum="10000" SelectionStart="0" Height="30" 
+        IsSelectionRangeEnabled="True" ValueChanged="SliderEnd_ValueChanged" Margin="0 10"/>
+                    </StackPanel>
+
+                    <Button x:Name="SearchPrice" Content="Искать по цене" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Height="40" Width="250" Click="SearchPrice_Click" Margin="0 10"/>
+
+                    <Button x:Name="ClearButton" Content="Отчистить поиск" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Height="40" Width="250" Click="ClearButton_Click" Margin="0 10"/>
+
+                </StackPanel>
+
+                <!--Панель отображения товаров и корзина-->
+                <Grid Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,20,0">
+                    <ScrollViewer Height="600">
+                        <ListBox x:Name="ProductCatalog" ItemTemplate="{StaticResource listTemplateSmall}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+        <Grid x:Name="BasketGird" Background="White" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="BackToCatalog" Margin="10" Text="Вернуться к каталогу" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="#4F4FD9" MouseLeftButtonUp="BackToCatalog_MouseLeftButtonUp"/>
+
+            <TextBlock x:Name="MakeOrder" Margin="0 10 40 10" Text="Оформить заказ" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="#4F4FD9" MouseLeftButtonUp="MakeOrder_MouseLeftButtonUp"/>
+
+            <StackPanel Grid.Row="1">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Сумма заказа" Style="{StaticResource MaterialDesignBody1TextBlock}" FontSize="30" Foreground="#4F4FD9" Margin="10"/>
+                    <TextBlock x:Name="SumOrder" Style="{StaticResource MaterialDesignBody1TextBlock}" FontSize="30" Foreground="#4F4FD9" Margin="10"/>
+
+                </StackPanel>
+
+                <ListBox x:Name="BasketCatalog" ItemTemplate="{StaticResource listTemplateBasket}"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

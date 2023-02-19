@@ -1,0 +1,41 @@
+﻿<Window x:Class="SaleTicket.AuthorizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SaleTicket"
+        mc:Ignorable="d"
+        MouseMove="Window_MouseMove"
+        KeyDown="Window_KeyDownAndUp"
+        KeyUp="Window_KeyDownAndUp"
+        PreviewTextInput="Window_PreviewTextInput"
+        Title="Авторизация" Height="237" Width="314" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel x:Name="FullIcon">
+            <Label x:Name="LabelLogin" Margin="10,0,0,0" Content="Логин" HorizontalAlignment="Left" VerticalAlignment="Top" Width="278" Height="23"/>
+            <TextBox x:Name="TextBoxLogin" Margin="10,5,0,0" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="242"/>
+            <Label x:Name="LabelPassword" Margin="10,10,18,0" Content="Пароль" Height="26"/>
+            <Grid Margin="10,0" Height="28">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="251*"/>
+                    <ColumnDefinition Width="37*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions/>
+                <PasswordBox x:Name="TextBoxPassword" Grid.ColumnSpan="1"/>
+                <TextBox x:Name="TextPass" Visibility="Hidden" Grid.ColumnSpan="1"/>
+                <Button x:Name="ImageEye" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewMouseLeftButtonDown="ImageEye_MouseLeftButtonDown"  PreviewMouseLeftButtonUp="ImageEye_MouseLeftButtonUp" Height="28" Width="28" Grid.Column="1" Margin=" 5 -3 0 0" Cursor="Hand"/>
+            </Grid>
+            <Button x:Name="ButtonEnter" Margin="10,10,10,0" Content="Вход" Click="ButtonClickEnter" Height="26"/>
+            <Button x:Name="ButtonRegistartion" Margin="10,5,10,0" Content="Регистрация" Click="ButtonClickRegistration" Height="26"/>
+        </StackPanel>
+        <StackPanel x:Name="captch" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <WrapPanel>
+                <Image Height="46" Width="151" Stretch="Uniform" Name="luc"/>
+                <Button Click="Button_Click_1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="37"/>
+            </WrapPanel>
+            <TextBox Margin="0 10 0 10" Name="cnText"/>
+            <Button Click="CapchaLoad" Content="Готово" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </StackPanel>
+    </Grid>
+</Window>

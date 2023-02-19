@@ -1,0 +1,70 @@
+﻿<Window x:Class="SaleTicket.AccountWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleTicket"
+        mc:Ignorable="d"
+        PreviewTextInput="Window_PreviewTextInput"
+        MouseMove="Window_MouseMove"
+        PreviewMouseDown="Window_PreviewMouseDown"
+        KeyDown="Window_KeyDownAndUp"
+        KeyUp="Window_KeyDownAndUp"
+        Title="Кабинет" Height="600" Width="960" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="Main">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0 0.8 0 1">
+                <Grid>
+                    <Button HorizontalAlignment="Left" Content="Выход"  Background="#FF3F51B5" Foreground="White" Click="BackBtn" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 230 0" Content="Магазин" Click="ShopBtn_Click" Cursor="Hand"/>
+                    <Grid x:Name="GridAdmin">
+                        <Button x:Name="WindowStatistic" Content="Статистика" Visibility="Hidden" Click="WindowStatistic_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedButton}" Cursor="Hand"/>
+                        <Button x:Name="WindowCarAll" Visibility="Hidden" Click="WindowTicketAll_Click" Width="146" Content="Создание билета" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" Margin="300,0,15,0" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                        <Button x:Name="WindowUserAll" Visibility="Hidden" Content="Редоктировать пользователей" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Style="{StaticResource MaterialDesignOutlinedButton}" Click="WindowUserAll_Click" Cursor="Hand"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="0 0 0 0">
+                <StackPanel>
+                    <Image x:Name="image_main" Margin="0 15 0 0" Height="300" Width="300" PreviewMouseLeftButtonDown="Img_PreviewMouseDown"/>
+                    <TextBox x:Name="TextLogin" Margin="0 15 0 0" materialDesign:HintAssist.Hint="Логин" IsReadOnly="True" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="300"/>
+                    <TextBox x:Name="TextRole" Margin="0 15 0 0" materialDesign:HintAssist.Hint="Роль" IsReadOnly="True" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="300" />
+                    <Grid Grid.Row="0" Margin="0 30 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ImageUpdate" Grid.Column="0" Content="Загрузить картинку" Width="160" Background="#FF3F51B5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ImageUpdate_Click"/>
+                        <Button x:Name="UpdateAll" Grid.Column="1" Content="Изменить" Width="160" Background="#FF3F51B5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Click="UpdateAll_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Silver" BorderThickness="1 0 0 0">
+                <StackPanel Margin="0 120 0 100">
+                    <ComboBox x:Name="GenderBox" Margin="15,15,15,0"  materialDesign:HintAssist.Hint="Пол" FontSize="15" Style="{StaticResource MaterialDesignComboBox}"/>
+                    <TextBox x:Name="TextName" Margin="15,15,15,0" materialDesign:HintAssist.Hint="Имя" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox x:Name="TextLastName" Margin="15,15,15,0" materialDesign:HintAssist.Hint="Фамилия" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox x:Name="TextEmail" Margin="15,15,15,0" materialDesign:HintAssist.Hint="Почта" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox x:Name="TextPassword" Margin="15,15,15,0" materialDesign:HintAssist.Hint="Пароль" FontSize="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Image x:Name="Img" PreviewMouseLeftButtonDown="Img_PreviewMouseUp" VerticalAlignment="Top" HorizontalAlignment="Left" Height="400" Width="400" Margin="280,109,0,0" Visibility="Hidden"/>
+    </Grid>
+</Window>

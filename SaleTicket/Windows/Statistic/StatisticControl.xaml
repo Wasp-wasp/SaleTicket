@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="SaleTicket.StatisticControl"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:charts="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleTicket"
+             mc:Ignorable="d" 
+             d:DesignHeight="880" d:DesignWidth="1200">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+
+                <TextBlock Text="Выбор продукта" Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Center"/>
+
+                <ComboBox x:Name="ChoiceCar" Grid.Row="0" Height="40" Width="250" SelectionChanged="ChoiceCar_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TicketTypeOfTicket}" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Margin="0 20">
+                    <TextBlock Text="Выбор периода времени" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <DatePicker x:Name="StartDate" Width="250" Height="40" SelectedDateChanged="StartDate_SelectedDateChanged"/>
+                    <DatePicker x:Name="EndDate" Width="250" Height="40" SelectedDateChanged="EndDate_SelectedDateChanged"/>
+                </StackPanel>
+
+                <Button x:Name="ClearSearch" Content="Отчистка поиска" Click="ClearSearch_Click" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Width="250" Height="40" Margin="0 10"/>
+            </StackPanel>
+
+            <DataGrid x:Name="DataGridUsers" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" FontFamily="Georgia" FontSize="22" Margin="5" SelectionChanged="DataGridUsers_SelectionChanged" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}" FontFamily="Georgia" FontSize="22"/>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" FontFamily="Georgia" FontSize="22"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <TextBlock Text="Тип диаграммы" Style="{StaticResource MaterialDesignBody1TextBlock}" VerticalAlignment="Center" Margin="10 0"/>
+                <ComboBox Name="ComboChart" SelectedIndex="0" Width="250" Height="40" SelectionChanged="ComboChart_SelectionChanged"/>
+            </StackPanel>
+
+            <WindowsFormsHost Background="Gray" Grid.Column="1" VerticalAlignment="Center">
+                <charts:Chart x:Name="ChartPayments">
+                    <charts:Chart.Legends>
+                        <charts:Legend>
+                        </charts:Legend>
+                    </charts:Chart.Legends>
+                </charts:Chart>
+            </WindowsFormsHost>
+        </StackPanel>
+    </Grid>
+</UserControl>
